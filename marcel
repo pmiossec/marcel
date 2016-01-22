@@ -4,168 +4,179 @@ set -e
 
 ACTION=$1
 
+function traduire {
+	if [[ "$2" == "--aide" ]]; then
+	  docker "$1" --help | sed "s/docker $1/marcel $ACTION/"
+	else
+	  docker "$1" "${*:2}"
+	fi
+}
+
 case "$ACTION" in
 attache)
-  docker attach "${*:2}"
+	traduire "attach" "${*:2}"
   ;;
 
 construis)
-  docker build "${*:2}"
+  traduire "build" "${*:2}"
   ;;
 
 engage)
-  docker commit "${*:2}"
+  traduire "commit" "${*:2}"
   ;;
 
 copie)
-  docker cp "${*:2}"
+  traduire "cp" "${*:2}"
   ;;
 
 crée)
-  docker create "${*:2}"
+  traduire "create" "${*:2}"
   ;;
 
 changements)
-  docker diff "${*:2}"
+  traduire "diff" "${*:2}"
   ;;
 
 événements|évènements)
-  docker events "${*:2}"
+  traduire "events" "${*:2}"
   ;;
 
 réalise)
-	docker exec "${*:2}"
+	traduire "exec" "${*:2}"
 	;;
 
 exporte)
-	docker export "${*:2}"
+	traduire "export" "${*:2}"
 	;;
 
 historique)
-	docker history "${*:2}"
+	traduire "history" "${*:2}"
 	;;
 
 images)
-	docker images "${*:2}"
+	traduire "images" "${*:2}"
 	;;
 
 importe)
-	docker import "${*:2}"
+	traduire "import" "${*:2}"
 	;;
 
 info)
-	docker info "${*:2}"
+	traduire "info" "${*:2}"
 	;;
 
 inspecte)
-	docker inspect "${*:2}"
+	traduire "inspect" "${*:2}"
 	;;
 
 tue)
-	docker kill "${*:2}"
+	traduire "kill" "${*:2}"
 	;;
 
 charge)
-	docker load "${*:2}"
+	traduire "load" "${*:2}"
 	;;
 
 connecte)
-	docker login "${*:2}"
+	traduire "login" "${*:2}"
 	;;
 
 déconnecte)
-	docker logout "${*:2}"
+	traduire "logout" "${*:2}"
 	;;
 
 journal)
-	docker logs "${*:2}"
+	traduire "logs" "${*:2}"
 	;;
 
 réseau)
-	docker network "${*:2}"
+	traduire "network" "${*:2}"
 	;;
 
 bloque)
-	docker pause "${*:2}"
+	traduire "pause" "${*:2}"
 	;;
 
 port)
-	docker port "${*:2}"
+	traduire "port" "${*:2}"
 	;;
 
 liste)
-	docker ps "${*:2}"
+	traduire "ps" "${*:2}"
 	;;
 
 récupère)
-	docker pull "${*:2}"
+	traduire "pull" "${*:2}"
 	;;
 
 publie)
-	docker push "${*:2}"
+	traduire "push" "${*:2}"
 	;;
 
 renomme)
-	docker rename "${*:2}"
+	traduire "rename" "${*:2}"
 	;;
 
 redémarre)
-	docker restart "${*:2}"
+	traduire "restart" "${*:2}"
 	;;
 
 suppr)
-	docker rm "${*:2}"
+	traduire "rm" "${*:2}"
 	;;
 
 sim)
-	docker rmi "${*:2}"
+	traduire "rmi" "${*:2}"
 	;;
 
-actionne)
-	docker run "${*:2}"
+lance)
+	traduire "run" "${*:2}"
 	;;
 
 suvegarde)
-	docker save "${*:2}"
+	traduire "save" "${*:2}"
 	;;
 
 recherche)
-	docker search "${*:2}"
+	traduire "search" "${*:2}"
 	;;
 
 démarre)
-	docker start "${*:2}"
+	traduire "start" "${*:2}"
 	;;
 
 stats)
-	docker stats "${*:2}"
+	traduire "stats" "${*:2}"
 	;;
 
 arrête)
-	docker stop "${*:2}"
+	traduire "stop" "${*:2}"
 	;;
 
 labellise)
-	docker tag "${*:2}"
+	traduire "tag" "${*:2}"
 	;;
 
 premiers)
-	docker top "${*:2}"
+	traduire "top" "${*:2}"
 	;;
 
 débloque)
-	docker unpause "${*:2}"
+	traduire "unpause" "${*:2}"
 	;;
 
 version)
-	docker version "${*:2}"
+	traduire "version" "${*:2}"
 	;;
 
 tome)
-	docker volume "${*:2}"
+	traduire "volume" "${*:2}"
 	;;
 
 attend)
-	docker wait "${*:2}"
+	traduire wait "${*:2}"
 	;;
+
+*)
+	docker --help | sed "s/docker/marcel/" | sed "s/--help/--aide/"
 esac
