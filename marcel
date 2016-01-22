@@ -133,7 +133,7 @@ lance)
 	traduire "run" "${*:2}"
 	;;
 
-suvegarde)
+sauvegarde)
 	traduire "save" "${*:2}"
 	;;
 
